@@ -16,6 +16,7 @@ piwik_ssl:apache:group - the group the piwik is installed for. e.g. www-data
 piwik_ssl:apache:service - the service to be notified. This is apache2 in Ubuntu.
 piwik_ssl:settings:locations:install - the install rootdir
 piwik_ssl:settings:locations:dest - the install dir of piwik
+ip_range - defines the IP range where the web access to piwik is allowed from
 
 Dependencies
 ------------
@@ -50,10 +51,10 @@ $ ansible-galaxy install -r requirements.yml
     - ansible-piwik
     - piwik-ssl
 ````
-Run your playbook site.yml
+Run your playbook site.yml. Extra variable IP is used to configure apache to allow web browser access to piwik from the defined IP address"
 
 ````
-$ ansible-playbook site.yml -h yourhostname
+$ ansible-playbook -i inventory site.yml --extra-vars "ip_range=IP"
 ````
 
 License
