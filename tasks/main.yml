@@ -1,0 +1,38 @@
+---
+# tasks file for role-template
+
+- name: "Harden Apache by disabling 000-default virtual host (Debian, Ubuntu)"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  sudo: yes
+  command: /usr/sbin/a2dissite 000-default
+  tags: piwikssl
+
+- name: "Add piwik-ssl virtual host configuration (Debian, Ubuntu)"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  sudo: yes
+  action: template src=piwik-ssl.j2 dest=/etc/{{ piwik_ssl.apache.service }}/sites-available/piwik-ssl.conf owner=root group=root mode=0640
+  tags: piwikssl
+
+- name: "Add piwik virtual host configuration (Debian, Ubuntu)"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  sudo: yes
+  action: template src=piwik.j2 dest=/etc/{{ piwik_ssl.apache.service }}/sites-available/piwik.conf owner=root group=root mode=0640
+  tags: piwikssl
+
+- name: "Enable piwik-ssl and piwik virtual hosts (Ubuntu, Debian)"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  sudo: yes
+  command: /usr/sbin/a2ensite piwik-ssl piwik
+  tags: apachesite
+
+- name: "Enable mod_ssl (Ubuntu, Debian)"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  sudo: yes
+  command: /usr/sbin/a2enmod ssl
+  notify:
+  - Restart Apache
+  tags: apachesite
+
+- name: "Start and enable Apache"
+  sudo: yes
+  action: service name={{ piwik_ssl.apache.service }} state=started enabled=yes

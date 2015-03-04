@@ -1,0 +1,42 @@
+<VirtualHost *:443>
+    SSLEngine on
+    SSLProtocol ALL -SSLv2 -SSLv3
+    SSLHonorCipherOrder on
+    SSLCipherSuite ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!EXPORT
+    SSLCertificateFile /etc/ssl/forgeservicelab.fi.crt
+    SSLCertificateChainFile /etc/ssl/forgeservicelab.fi.crt.chain
+    SSLCertificateKeyFile /etc/ssl/forgeservicelab.fi.key
+
+    <IfModule mod_alias.c>
+	Alias /piwik {{ piwik.settings.locations.dest }}
+    </IfModule>
+
+    <Directory {{ piwik.settings.locations.dest }}>
+	    Order Deny,Allow 
+	    Deny from All 
+      {% if ip_range is defined %}
+	    # Allow from {{ ip_range }}
+	    Require ip {{ ip_range }}
+      {% else %}
+	  Allow from All
+      {% if ansible_distribution in [ 'CentOS', 'RedHat', 'Fedora' ] %}
+      Require all granted
+      {% endif %}
+      {% endif %}
+
+	    <Files "*">
+		Order Deny,Allow
+		Deny from all
+      {% if ip_range is defined %}
+		Allow from {{ ip_range }}
+      {% endif %}
+	    </Files>
+
+	    <Files ~ "^piwik\.(js|php)|robots\.txt$">
+		Allow from all
+		Satisfy any
+	    </Files>
+
+    </Directory>
+
+</VirtualHost>  

@@ -1,0 +1,6 @@
+<VirtualHost *:80>
+    <IfModule mod_alias.c>
+        Alias /piwik /opt/piwik
+    </IfModule>
+    Redirect permanent /piwik https://{{ ansible_fqdn }}/piwik
+</VirtualHost>

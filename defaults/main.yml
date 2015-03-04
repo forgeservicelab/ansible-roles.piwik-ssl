@@ -1,0 +1,13 @@
+---
+# defaults file for role-template
+
+piwik_ssl:
+  apache:
+    user: 'www-data'
+    group: 'www-data'
+    service: 'apache2'
+  settings:
+    locations:
+      tmp: '/tmp'
+      install: '/opt/'
+      dest: '/opt/piwik'
