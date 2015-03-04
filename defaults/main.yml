@@ -1,14 +1,15 @@
 ---
 # defaults file for role-template
 
+sslcert: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+sslkey: '/etc/ssl/private/ssl-cert-snakeoil.key'
+# sslchain: '/etc/ssl/forgeservicelab.fi.crt.chain'
+
 piwik_ssl:
   apache:
     user: 'www-data'
     group: 'www-data'
     service: 'apache2'
-    sslcert: '/etc/ssl/forgeservicelab.fi.crt'
-    sslchain: '/etc/ssl/forgeservicelab.fi.crt.chain'
-    sslkey: '/etc/ssl/forgeservicelab.fi.key'
   settings:
     locations:
       tmp: '/tmp'

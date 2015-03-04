@@ -1,14 +1,15 @@
 <VirtualHost *:443>
-    {% if sslcert is defined %}
+{% if sslcert is defined %}
     SSLEngine on
     SSLProtocol ALL -SSLv2 -SSLv3
     SSLHonorCipherOrder on
     SSLCipherSuite ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!EXPORT
     SSLCertificateFile {{ sslcert }}
-    SSLCertificateChainFile {{ sslchain }}
     SSLCertificateKeyFile {{ sslkey }}
-    {% endif %}
-
+{% if sslchain is defined %}
+    SSLCertificateChainFile {{ sslchain }}
+{% endif %}
+{% endif %}
     <IfModule mod_alias.c>
 	Alias /piwik {{ piwik.settings.locations.dest }}
     </IfModule>
