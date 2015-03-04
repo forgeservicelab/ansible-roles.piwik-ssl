@@ -6,6 +6,9 @@ piwik_ssl:
     user: 'www-data'
     group: 'www-data'
     service: 'apache2'
+    sslcert: '/etc/ssl/forgeservicelab.fi.crt'
+    sslchain: '/etc/ssl/forgeservicelab.fi.crt.chain'
+    sslkey: '/etc/ssl/forgeservicelab.fi.key'
   settings:
     locations:
       tmp: '/tmp'

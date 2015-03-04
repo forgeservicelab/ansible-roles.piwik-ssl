@@ -6,7 +6,9 @@ This role creates and enables necessary site configurations for apache to run pi
 Requirements
 ------------
 
-None
+In order to be able to have a proper ssl capable Piwik site configuration for Apache, you must provide information about the server certificate locations in the target system.
+
+Define the server certificate locations in ./roles/piwik-ssl/defaults/main.yml
 
 Role Variables
 --------------
@@ -14,7 +16,7 @@ Role Variables
 piwik_ssl:apache:user - the user the piwik is installed for. e.g. www-data
 piwik_ssl:apache:group - the group the piwik is installed for. e.g. www-data
 piwik_ssl:apache:service - the service to be notified. This is apache2 in Ubuntu.
-piwik_ssl:settings:locations:install - the install rootdir
+piwik_ssl:apache:ssl* - the server certificate file locations in the target system
 piwik_ssl:settings:locations:dest - the install dir of piwik
 ip_range - defines the IP range where the web access to piwik is allowed from
 

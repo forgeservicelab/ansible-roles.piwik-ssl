@@ -1,11 +1,13 @@
 <VirtualHost *:443>
+    {% if sslcert is defined %}
     SSLEngine on
     SSLProtocol ALL -SSLv2 -SSLv3
     SSLHonorCipherOrder on
     SSLCipherSuite ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!EXPORT
-    SSLCertificateFile /etc/ssl/forgeservicelab.fi.crt
-    SSLCertificateChainFile /etc/ssl/forgeservicelab.fi.crt.chain
-    SSLCertificateKeyFile /etc/ssl/forgeservicelab.fi.key
+    SSLCertificateFile {{ sslcert }}
+    SSLCertificateChainFile {{ sslchain }}
+    SSLCertificateKeyFile {{ sslkey }}
+    {% endif %}
 
     <IfModule mod_alias.c>
 	Alias /piwik {{ piwik.settings.locations.dest }}
