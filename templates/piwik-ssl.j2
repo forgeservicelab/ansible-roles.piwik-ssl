@@ -1,9 +1,12 @@
 <VirtualHost *:443>
+    <IfModule mod_headers.c>
+        Header always set Strict-Transport-Security "max-age=31536000"
+    </IfModule>
 {% if sslcert is defined %}
     SSLEngine on
-    SSLProtocol ALL -SSLv2 -SSLv3
+    SSLProtocol -ALL +TLSv1 +TLSv1.1 +TLSv1.2
     SSLHonorCipherOrder on
-    SSLCipherSuite ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!EXPORT
+    SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:!AES128
     SSLCertificateFile {{ sslcert }}
     SSLCertificateKeyFile {{ sslkey }}
 {% if sslchain is defined %}
