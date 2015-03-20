@@ -1,17 +1,7 @@
 ---
-# defaults file for role-template
-
-sslcert: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
-sslkey: '/etc/ssl/private/ssl-cert-snakeoil.key'
-# sslchain: '/etc/ssl/forgeservicelab.fi.crt.chain'
-
-piwik_ssl:
-  apache:
-    user: 'www-data'
-    group: 'www-data'
-    service: 'apache2'
-  settings:
-    locations:
-      tmp: '/tmp'
-      install: '/opt/'
-      dest: '/opt/piwik'
+# defaults file for the role
+apache:
+  allow_ip: "83.150.108.249" # Allow http connections from
+  sslcert: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+  sslkey: '/etc/ssl/private/ssl-cert-snakeoil.key'
+  # sslchain: '/etc/ssl/forgeservicelab.fi.crt.chain'

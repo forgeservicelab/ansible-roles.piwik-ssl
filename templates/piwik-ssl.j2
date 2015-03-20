@@ -1,5 +1,5 @@
 <VirtualHost *:443>
-{% if sslcert is defined %}
+{% if apache.sslcert is defined %}
     <IfModule mod_headers.c>
         Header always set Strict-Transport-Security "max-age=31536000"
     </IfModule>
@@ -9,10 +9,10 @@
     SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:!AES128
 
 
-    SSLCertificateFile {{ sslcert }}
-    SSLCertificateKeyFile {{ sslkey }}
-{% if sslchain is defined %}
-    SSLCertificateChainFile {{ sslchain }}
+    SSLCertificateFile {{ apache.sslcert }}
+    SSLCertificateKeyFile {{ apache.sslkey }}
+{% if apache.sslchain is defined %}
+    SSLCertificateChainFile {{ apache.sslchain }}
 {% endif %}
 {% endif %}
     <IfModule mod_alias.c>
@@ -22,9 +22,9 @@
     <Directory {{ piwik.settings.locations.dest }}>
 	    Order Deny,Allow 
 	    Deny from All 
-      {% if ip_range is defined %}
-	    # Allow from {{ ip_range }}
-	    Require ip {{ ip_range }}
+      {% if apache.allow_ip is defined %}
+	    # Allow from {{ apache.allow_ip }}
+	    Require ip {{ apache.allow_ip }}
       {% else %}
 	  Allow from All
       {% if ansible_distribution in [ 'CentOS', 'RedHat', 'Fedora' ] %}
@@ -35,8 +35,8 @@
 	    <Files "*">
 		Order Deny,Allow
 		Deny from all
-      {% if ip_range is defined %}
-		Allow from {{ ip_range }}
+      {% if apache.allow_ip is defined %}
+		Allow from {{ apache.allow_ip }}
       {% endif %}
 	    </Files>
 
