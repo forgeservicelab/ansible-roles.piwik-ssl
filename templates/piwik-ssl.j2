@@ -19,6 +19,10 @@
 	Alias /piwik {{ piwik.settings.locations.dest }}
     </IfModule>
 
+    <Directory />
+            Deny from All
+    </Directory>
+
     <Directory {{ piwik.settings.locations.dest }}>
 	    Order Deny,Allow 
 	    Deny from All 
