@@ -1,6 +1,7 @@
 ---
 # defaults file for the role
 apache:
+  server_name: "localhost" # ServerName e.g. myserver.domain.com
   allow_ip: "83.150.108.249" # Allow http connections from
   sslcert: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
   sslkey: '/etc/ssl/private/ssl-cert-snakeoil.key'
