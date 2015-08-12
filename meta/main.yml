@@ -2,8 +2,8 @@
 galaxy_info:
   author: Pasi Kivikangas
   description: Ansible role to disable default apache2 siteconf and to enable piwik conf for ssl connections.
-  company: DIGILE Ltd
-  license: license (MIT)
+  company: DIGILE Ltd.
+  license: MIT
   min_ansible_version: 1.8
   platforms:
   - name: Ubuntu
